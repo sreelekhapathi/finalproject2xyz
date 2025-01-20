@@ -13,7 +13,7 @@
 
     - name: Ensure Docker container is running
       docker_container:
-        name: "finalproject2xyz"
+        name: "finalproject2xyz-container"
         image: "finalproject2xyz:latest"
         state: started
         restart_policy: always

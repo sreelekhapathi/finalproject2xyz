@@ -1,12 +1,11 @@
 ---
 - name: Build Docker Image and Run Container
   hosts: localhost
-  become: true
 
   tasks:
     - name: Build Docker image from Dockerfile
       docker_image:
-        build: "/var/lib/jenkins/workspace/xyzcicdpipeline-ansibledocker"
+        build: .
         name: "{{ docker_image_name }}"
         tag: "{{ docker_image_tag }}"
         state: present

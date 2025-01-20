@@ -7,14 +7,14 @@
     - name: Build Docker image from Dockerfile
       docker_image:
         build: .
-        name: "finalproject2xyz"
-        tag: "latest"
+        name: "{{ docker_image_name }}"
+        tag: "{{ docker_image_tag }}"
         state: present
 
     - name: Ensure Docker container is running
       docker_container:
-        name: "finalproject2xyz-container"
-        image: "finalproject2xyz:latest"
+        name: "{{ container_name }}"
+        image: "{{ docker_image_name }}:{{ docker_image_tag }}"
         state: started
         restart_policy: always
         ports:

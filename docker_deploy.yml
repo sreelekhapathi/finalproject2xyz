@@ -6,7 +6,7 @@
   tasks:
     - name: Build Docker image from Dockerfile
       docker_image:
-        build: "/var/lib/jenkins/workspace/xyzcicdpipeline-ansibledocker/"
+        build: "/var/lib/jenkins/workspace/xyzcicdpipeline-ansibledocker"
         name: "{{ docker_image_name }}"
         tag: "{{ docker_image_tag }}"
         state: present

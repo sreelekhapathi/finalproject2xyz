@@ -5,7 +5,8 @@
   tasks:
     - name: Build Docker image from Dockerfile
       docker_image:
-        build: .
+        build: 
+          path: "./"
         name: "{{ docker_image_name }}"
         tag: "{{ docker_image_tag }}"
         state: present

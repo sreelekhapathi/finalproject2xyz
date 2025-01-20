@@ -2,7 +2,7 @@
 - name: Build Docker Image and Run Container
   hosts: localhost
   gather_facts: no
-  become: true
+  
   tasks:
     - name: Build Docker image from Dockerfile
       docker_image:

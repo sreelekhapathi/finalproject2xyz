@@ -1,26 +1,25 @@
 ---
-- name: Build and deploy Docker container
+- name: Docker Image and Container Management
   hosts: localhost
   become: true
-  tasks:
-    - name: Build Docker image
-      docker_image:
-        name: "{{ docker_image_name }}"
-        tag: "{{ docker_image_tag }}"
-        build: .
-        path: "{{ dockerfile_path }}"
-    
-    - name: Push Docker image to Docker Hub
-      docker_image:
-        name: "{{ dockerhub_username }}/{{ docker_image_name }}"
-        tag: "{{ docker_image_tag }}"
-        push: true
-        source: build
-        load: true
+  vars:
+    image_name: "finalproject2xyz"
+    container_name: "finalproject2xyzcontainer"
+    dockerfile_path: "./Dockerfile"
 
-    - name: Run Docker container
+  tasks:
+    - name: Build Docker Image from Dockerfile
+      docker_image:
+        build:
+          path: "{{ dockerfile_path }}"
+        name: "{{ image_name }}"
+        tag: "latest"
+
+    - name: Create and start Docker container
       docker_container:
         name: "{{ container_name }}"
-        image: "{{ dockerhub_username }}/{{ docker_image_name }}:{{ docker_image_tag }}"
+        image: "{{ image_name }}:latest"
         state: started
-        restart_policy: always
+        restart_policy: unless-stopped
+        ports:
+          - "8080:8080"  # Exposing port for web applications

@@ -1,0 +1,22 @@
+---
+- name: Build Docker Image and Run Container
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Build Docker image from Dockerfile
+      docker_image:
+        build: .
+        name: "finalproject2xyz"
+        tag: "latest"
+        state: present
+
+    - name: Ensure Docker container is running
+      docker_container:
+        name: "finalproject2xyz"
+        image: "finalproject2xyz:"latest
+        state: started
+        restart_policy: always
+        ports:
+          - "8080:8080"  # Example port mapping
+      environment:
+        DOCKER_HOST: unix:///var/run/docker.sock
